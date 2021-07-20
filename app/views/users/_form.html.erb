@@ -1,22 +1,30 @@
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<% if @user.errors.any? %>
+    <h2>The following erros prevented the artice creation</h2>
+    <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </ul>
+<% end %>
 
-  <div class="field">
-    <%= form.label :username %>
-    <%= form.text_field :username %>
-  </div>
+<%= form_with(model: @user, local: true) do |f| %>
+<p>
+    <%= f.label :username %><br/>
+    <%= f.text_field :username %>
+</p>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<p>
+    <%= f.label :email %><br/>
+    <%= f.email_field :email %>
+</p>
+
+<p>
+    <%= f.label :password %><br/>
+    <%= f.password_field :password, placeholder: "enter your password" %>
+</p>
+
+
+<p>
+<%= f.submit %>
+</p>
 <% end %>
